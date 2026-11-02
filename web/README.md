@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Roots & Reflections — Phase 1
 
-## Getting Started
+An editorial blog shell built with Next.js App Router, TypeScript, and Tailwind CSS 4.
 
-First, run the development server:
+## Local development
 
-```bash
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. Google Fonts are downloaded at build time by `next/font/google`, then served locally to visitors. The initial build needs access to Google Fonts.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+npm run lint
+npm run build
+```
 
-## Learn More
+The production build exports static files into `out/`. Serve that directory with a static file server; `next start` does not serve static exports.
 
-To learn more about Next.js, take a look at the following resources:
+## Design system
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Color variables and Tailwind 4 theme mappings: `src/app/globals.css`.
+- Fonts: Newsreader for headings, Source Serif 4 for prose, Source Sans 3 for navigation and labels, configured in `src/app/layout.tsx`.
+- Shared shell: `Container`, `SectionDivider`, `TreeLogo`, `SiteHeader`, and `SiteFooter` in `src/components/`.
+- Site identity and navigation destinations: `src/lib/site.ts`.
+- The installed `@tailwindcss/turbopack` loader is configured in `next.config.ts` to compile theme tokens and utilities. No additional dependencies are needed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The shell and page content are Server Components. Only `SiteNavigation` uses a client boundary for the mobile disclosure and current-page indication. The menu supports keyboard activation, Escape to close and return focus, and closes after a link is selected. The copyright year is generated at build time and updates on rebuild.
 
-## Deploy on Vercel
+## Scope
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The homepage is a temporary welcome. `/writings/` and `/about/` are explicitly labeled placeholders so header and footer links have working destinations. Topic links target sections of the Writings placeholder. There are no articles, article listings, CMS integration, or deployment configuration in this phase.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before approving the design, review the masthead and spacing at desktop, tablet, and mobile widths, the tree at 32px and 96px, font rendering, visible keyboard focus, and mobile navigation. Check for horizontal overflow at 320px and with text zoom enabled.
