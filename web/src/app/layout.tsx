@@ -3,6 +3,7 @@ import { Newsreader, Source_Serif_4, Source_Sans_3 } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/lib/site";
+import { canonicalUrl, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -25,6 +26,9 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
+  alternates: { canonical: canonicalUrl("/") },
+  robots: { index: false, follow: true },
   title: { default: site.name, template: `%s | ${site.name}` },
   description: "Reflections on life, learning, nature, and personal growth. On life, learning, and the art of growing.",
 };

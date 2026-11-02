@@ -1,26 +1,27 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { EditorialHero } from "@/components/editorial-hero";
+import { MoreFromJournal } from "@/components/more-from-journal";
+import { mockArticles } from "@/data/mock-articles";
+import { selectHomepageArticles } from "@/lib/select-homepage-articles";
+
+export const metadata: Metadata = {
+  description: "The latest illustrative reflections on childhood, learning, parenting, nature, and the art of growing from Roots & Reflections.",
+};
 
 export default function Home() {
+  const { featured, sideStories, moreArticles } = selectHomepageArticles(mockArticles);
+
   return (
-    <Container>
-      <section aria-labelledby="welcome-heading" className="mx-auto max-w-3xl py-20 text-center sm:py-24 lg:py-28">
-        <p className="eyebrow">A place to pause & grow</p>
-        <h1 id="welcome-heading" className="page-heading mt-6">
-          Rooted in experience.<br />Open to possibility.
-        </h1>
-        <div aria-hidden="true" className="mx-auto my-8 h-px w-16 bg-leaf" />
-        <p className="mx-auto max-w-xl text-lg leading-relaxed sm:text-xl">
-          Welcome to Roots &amp; Reflections. A quiet space for thinking about
-          life, learning, and the small, everyday moments that help us grow.
-        </p>
-        <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted">
-          There is always something to notice, something to learn, and room to
-          see the familiar a little differently.
-        </p>
-        <p className="mt-10 font-sans text-xs tracking-widest text-muted uppercase">
-          Design preview · Placeholder welcome copy
-        </p>
+    <Container className="pb-6">
+      <section aria-labelledby="latest-heading" className="pt-8 sm:pt-10">
+        <div className="mb-7 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
+          <h1 id="latest-heading" className="text-3xl text-forest sm:text-4xl">The Latest Reflections</h1>
+          <p className="max-w-sm font-sans text-xs leading-relaxed text-muted">Design preview · All stories, dates, and reading times are illustrative placeholders.</p>
+        </div>
+        <EditorialHero featured={featured} sideStories={sideStories} />
       </section>
+      <MoreFromJournal articles={moreArticles} />
     </Container>
   );
 }
